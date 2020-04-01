@@ -1,28 +1,53 @@
 package com.nexttozero.arbattleground;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.ar.core.Anchor;
+import com.google.ar.core.Frame;
+import com.google.ar.core.HitResult;
+import com.google.ar.core.Plane;
+import com.google.ar.core.Trackable;
+import com.google.ar.core.TrackingState;
+import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.TransformableNode;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    public static final String DEBUG = "debug";
+    private PointerDrawable pointer = new PointerDrawable();
+    private boolean isTracking;
+    private boolean isHitting;
+    private ModelLoader modelLoader;
     //declaration of ARFragment
     private ArFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d(DEBUG, "started:");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton fab = findViewById(R.id.btn_settings);
+      /**  FloatingActionButton fab = findViewById(R.id.btn_settings);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,8 +55,19 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+       **/
         fragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
+
+        fragment.getArSceneView().getScene().addOnUpdateListener(frameTime -> {
+            fragment.onUpdate(frameTime);
+            onUpdate();
+        });
+
+        Log.d(DEBUG, "OnCreate Completed:");
+        modelLoader = new ModelLoader(new WeakReference<>(this));
+        initializeGallery();
 
 
     }
@@ -57,4 +93,135 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void onUpdate() {
+        boolean trackingChanged = updateTracking();
+        View contentView = findViewById(android.R.id.content);
+        if (trackingChanged) {
+            if (isTracking) {
+                contentView.getOverlay().add(pointer);
+            } else {
+                contentView.getOverlay().remove(pointer);
+            }
+            contentView.invalidate();
+        }
+
+        if (isTracking) {
+            boolean hitTestChanged = updateHitTest();
+            if (hitTestChanged) {
+                pointer.setEnabled(isHitting);
+                contentView.invalidate();
+            }
+        }
+
+    }
+    private boolean updateTracking() {
+        Frame frame = fragment.getArSceneView().getArFrame();
+        boolean wasTracking = isTracking;
+        isTracking = frame != null &&
+                frame.getCamera().getTrackingState() == TrackingState.TRACKING;
+        return isTracking != wasTracking;
+    }
+
+
+    private boolean updateHitTest() {
+        Frame frame = fragment.getArSceneView().getArFrame();
+        android.graphics.Point pt = getScreenCenter();
+        List<HitResult> hits;
+        boolean wasHitting = isHitting;
+        isHitting = false;
+        if (frame != null) {
+            hits = frame.hitTest(pt.x, pt.y);
+            for (HitResult hit : hits) {
+                Trackable trackable = hit.getTrackable();
+                if (trackable instanceof Plane &&
+                        ((Plane) trackable).isPoseInPolygon(hit.getHitPose())) {
+                    isHitting = true;
+                    break;
+                }
+            }
+        }
+        return wasHitting != isHitting;
+    }
+
+    private android.graphics.Point getScreenCenter() {
+        View vw = findViewById(android.R.id.content);
+        return new android.graphics.Point(vw.getWidth()/2, vw.getHeight()/2);
+    }
+
+
+
+    private void initializeGallery() {
+        LinearLayout gallery = findViewById(R.id.gallery_layout);
+
+        ImageView andy = new ImageView(this);
+        andy.setImageResource(R.drawable.droid_thumb);
+        andy.setContentDescription("andy");
+        andy.setOnClickListener(view ->{addObject(Uri.parse("andy_dance.sfb"));});
+        gallery.addView(andy);
+
+        ImageView cabin = new ImageView(this);
+        cabin.setImageResource(R.drawable.cabin_thumb);
+        cabin.setContentDescription("cabin");
+        cabin.setOnClickListener(view ->{addObject(Uri.parse("Cabin.sfb"));});
+        gallery.addView(cabin);
+
+        ImageView house = new ImageView(this);
+        house.setImageResource(R.drawable.house_thumb);
+        house.setContentDescription("house");
+        house.setOnClickListener(view ->{addObject(Uri.parse("House.sfb"));});
+        gallery.addView(house);
+
+        ImageView igloo = new ImageView(this);
+        igloo.setImageResource(R.drawable.igloo_thumb);
+        igloo.setContentDescription("igloo");
+        igloo.setOnClickListener(view ->{addObject(Uri.parse("igloo.sfb"));});
+        gallery.addView(igloo);
+
+
+        ImageView zombie = new ImageView(this);
+        igloo.setImageResource(R.drawable.igloo_thumb);
+        igloo.setContentDescription("zombie");
+        igloo.setOnClickListener(view ->{addObject(Uri.parse("zombie.sfb"));});
+        gallery.addView(zombie);
+    }
+
+    private void addObject(Uri model) {
+        Frame frame = fragment.getArSceneView().getArFrame();
+        android.graphics.Point pt = getScreenCenter();
+        List<HitResult> hits;
+        if (frame != null) {
+            hits = frame.hitTest(pt.x, pt.y);
+            for (HitResult hit : hits) {
+                Trackable trackable = hit.getTrackable();
+                if (trackable instanceof Plane &&
+                        ((Plane) trackable).isPoseInPolygon(hit.getHitPose())) {
+                    modelLoader.loadModel(hit.createAnchor(), model);
+                    break;
+
+                }
+            }
+        }
+    }
+
+    public void addNodeToScene(Anchor anchor, ModelRenderable renderable) {
+        AnchorNode anchorNode = new AnchorNode(anchor);
+        TransformableNode node = new TransformableNode(fragment.getTransformationSystem());
+        node.setRenderable(renderable);
+        node.setParent(anchorNode);
+        fragment.getArSceneView().getScene().addChild(anchorNode);
+        node.select();
+    }
+
+    public void onException(Throwable throwable){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(throwable.getMessage())
+                .setTitle("Codelab error!");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return;
+    }
+
+
+
 }
