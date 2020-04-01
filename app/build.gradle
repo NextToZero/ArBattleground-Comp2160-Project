@@ -47,3 +47,13 @@ sceneform.asset('sampledata/models/andy.obj',
         'sampledata/models/andy.sfa',
         'src/main/assets/andy',
 )
+sceneform.asset('sampledata/models/Cabin.obj',
+        'default',
+        'sampledata/models/Cabin.sfa',
+        'src/main/assets/Cabin',
+)
+sceneform.asset('sampledata/models/igloo.obj',
+        'default',
+        'sampledata/models/igloo.sfa',
+        'src/main/assets/igloo',
+)
