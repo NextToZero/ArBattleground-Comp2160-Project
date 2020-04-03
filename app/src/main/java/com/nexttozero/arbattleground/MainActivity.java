@@ -3,8 +3,6 @@ package com.nexttozero.arbattleground;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Frame;
 import com.google.ar.core.HitResult;
@@ -18,7 +16,6 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
@@ -154,36 +151,29 @@ public class MainActivity extends AppCompatActivity {
     private void initializeGallery() {
         LinearLayout gallery = findViewById(R.id.gallery_layout);
 
-        ImageView andy = new ImageView(this);
-        andy.setImageResource(R.drawable.droid_thumb);
-        andy.setContentDescription("andy");
-        andy.setOnClickListener(view ->{addObject(Uri.parse("andy_dance.sfb"));});
-        gallery.addView(andy);
+        ImageView Dragon = new ImageView(this);
+        Dragon.setImageResource(R.drawable.dragon_icon);
+        Dragon.setContentDescription("Dragon");
+        Dragon.setOnClickListener(view ->{addObject(Uri.parse("Dragon.sfb"));});
+        gallery.addView(Dragon);
 
-        ImageView cabin = new ImageView(this);
-        cabin.setImageResource(R.drawable.cabin_thumb);
-        cabin.setContentDescription("cabin");
-        cabin.setOnClickListener(view ->{addObject(Uri.parse("Cabin.sfb"));});
-        gallery.addView(cabin);
+        ImageView Mimic = new ImageView(this);
+        Mimic.setImageResource(R.drawable.mimic_icon);
+        Mimic.setContentDescription("Mimic");
+        Mimic.setOnClickListener(view ->{addObject(Uri.parse("Mimic.sfb"));});
+        gallery.addView(Mimic);
 
-        ImageView house = new ImageView(this);
-        house.setImageResource(R.drawable.house_thumb);
-        house.setContentDescription("house");
-        house.setOnClickListener(view ->{addObject(Uri.parse("House.sfb"));});
-        gallery.addView(house);
+        ImageView Mindflayer = new ImageView(this);
+        Mindflayer.setImageResource(R.drawable.mindflayer_icon);
+        Mindflayer.setContentDescription("Mindflayer");
+        Mindflayer.setOnClickListener(view ->{addObject(Uri.parse("Mindflayer.sfb"));});
+        gallery.addView(Mindflayer);
 
-        ImageView igloo = new ImageView(this);
-        igloo.setImageResource(R.drawable.igloo_thumb);
-        igloo.setContentDescription("igloo");
-        igloo.setOnClickListener(view ->{addObject(Uri.parse("igloo.sfb"));});
-        gallery.addView(igloo);
-
-
-        ImageView zombie = new ImageView(this);
-        igloo.setImageResource(R.drawable.igloo_thumb);
-        igloo.setContentDescription("zombie");
-        igloo.setOnClickListener(view ->{addObject(Uri.parse("zombie.sfb"));});
-        gallery.addView(zombie);
+        ImageView Zombie = new ImageView(this);
+        Zombie.setImageResource(R.drawable.zombie_icon);
+        Zombie.setContentDescription("Zombie");
+        Zombie.setOnClickListener(view ->{addObject(Uri.parse("Zombie.sfb"));});
+        gallery.addView(Zombie);
     }
 
     private void addObject(Uri model) {

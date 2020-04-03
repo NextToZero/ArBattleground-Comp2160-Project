@@ -42,18 +42,18 @@ sceneform.asset('sampledata/models/Zombie.obj',
         'sampledata/models/Zombie.sfa',
         'src/main/assets/Zombie')
 
-sceneform.asset('sampledata/models/andy.obj',
+sceneform.asset('sampledata/models/Dragon.obj',
         'default',
-        'sampledata/models/andy.sfa',
-        'src/main/assets/andy',
+        'sampledata/models/Dragon.sfa',
+        'src/main/assets/Dragon',
 )
-sceneform.asset('sampledata/models/Cabin.obj',
+sceneform.asset('sampledata/models/Mimic.obj',
         'default',
-        'sampledata/models/Cabin.sfa',
-        'src/main/assets/Cabin',
+        'sampledata/models/Mimic.sfa',
+        'src/main/assets/Mimic',
 )
-sceneform.asset('sampledata/models/igloo.obj',
+sceneform.asset('sampledata/models/Mindflayer.obj',
         'default',
-        'sampledata/models/igloo.sfa',
-        'src/main/assets/igloo',
+        'sampledata/models/Mindflayer.sfa',
+        'src/main/assets/Mindflayer',
 )
