@@ -21,6 +21,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,8 +69,12 @@ public class MainActivity extends AppCompatActivity {
             onUpdate();
         });
 
-        Log.d(DEBUG, "OnCreate Completed:");
+
         modelLoader = new ModelLoader(new WeakReference<>(this));
+
+
+
+
 
 
         //creation of galleryButton ImageButton. For use in GalleryVisible method.
@@ -76,7 +82,14 @@ public class MainActivity extends AppCompatActivity {
         galleryLL = findViewById(R.id.gallery_layout);
         initializeGallery();
 
+        TitleSplashFade();
+
+
+        Log.d(DEBUG, "OnCreate Completed:");
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,6 +249,16 @@ public class MainActivity extends AppCompatActivity {
             galleryLL.setVisibility(View.INVISIBLE);
 
         }
+
+
+    }
+
+
+    public void TitleSplashFade(){
+
+        ImageView titlesplash= (ImageView)findViewById(R.id.titlesplash_imageview);
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        titlesplash.startAnimation(myFadeInAnimation); //Set animation to your Imag
 
 
     }

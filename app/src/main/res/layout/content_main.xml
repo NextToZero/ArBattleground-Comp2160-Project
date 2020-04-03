@@ -46,18 +46,30 @@
         <ImageButton
             android:id="@+id/addmodel_button"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
             android:background="#00FFFFFF"
+            android:onClick="GalleryVisible"
             android:scaleType="fitCenter"
             android:src="@drawable/gallery_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/sceneform_fragment"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sceneform_fragment"
-            app:layout_constraintVertical_bias="0.975"
-            android:onClick="GalleryVisible"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/titlesplash_imageview"
+            app:layout_constraintVertical_bias="0.975" />
+
+        <ImageView
+            android:id="@+id/titlesplash_imageview"
+            android:layout_width="431dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="410dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/addmodel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/titlesplash" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
