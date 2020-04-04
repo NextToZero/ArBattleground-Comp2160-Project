@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">ArBattleground</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="dragon_desc"> A great Red Dragon. Few who encounter this mighty foe escape with their lives.</string>
+    <string name="zombie_desc"> A reanimated corpse. Beware its diseased bite, or you may find that you start to crave flesh </string>
+    <string name="mimic_desc"> A failed experiment of a mad wizard. This creature hides in plain sight, and prays on greedy adventurers</string>
+    <string name="mindflayer_desc">A creature of the deep Underdark. Powerful psionic warriors, they enthrall weaker creatures to do their bidding. </string>
+
+
 </resources>

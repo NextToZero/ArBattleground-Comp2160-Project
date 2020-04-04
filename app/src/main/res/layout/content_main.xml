@@ -47,8 +47,8 @@
         <ImageButton
             android:id="@+id/addmodel_button"
             android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="16dp"
             android:background="#00FFFFFF"
             android:onClick="GalleryVisible"
             android:scaleType="fitCenter"
@@ -59,6 +59,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titlesplash_imageview"
             app:layout_constraintVertical_bias="0.975" />
+
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="#00FFFFFF"
+            android:onClick="GalleryVisible"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addmodel_button"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/clear_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="#00FFFFFF"
+            android:onClick="ClearScene"
+            android:scaleType="fitCenter"
+            android:src="@drawable/clear_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addmodel_button" />
 
         <ImageView
             android:id="@+id/titlesplash_imageview"

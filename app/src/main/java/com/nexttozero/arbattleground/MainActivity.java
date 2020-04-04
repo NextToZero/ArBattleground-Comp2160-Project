@@ -16,6 +16,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.View;
@@ -263,9 +264,28 @@ public class MainActivity extends AppCompatActivity {
 
 
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        titlesplash.startAnimation(myFadeInAnimation); //Set animation to your Imag
+        titlesplash.startAnimation(myFadeInAnimation);
 
 
+
+    }
+
+
+    public void ClearScene(View view) {
+
+        /**
+        fragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
+
+
+        final FragmentTransaction clear = getSupportFragmentManager().beginTransaction();
+        clear.detach(fragment);
+        clear.attach(fragment);
+        clear.commit();
+        **/
+
+        //The above code recreates the sceneform fragement. Currently a work in progress, as I'm trying to find a better way to clear nodes.
+        //Currently obliterates the sceneform fragment and then fails to recreate it.
+        
 
     }
 }
