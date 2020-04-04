@@ -47,6 +47,7 @@ sceneform.asset('sampledata/models/Dragon.obj',
         'sampledata/models/Dragon.sfa',
         'src/main/assets/Dragon',
 )
+
 sceneform.asset('sampledata/models/Mimic.obj',
         'default',
         'sampledata/models/Mimic.sfa',

@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     //declaration of ARFragment
     private ArFragment fragment;
 
+
+    private ImageView titlesplash;
+
     //Gallery Visibility
     ImageButton galleryButton;
     LinearLayout galleryLL;
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton galleryButton = findViewById(R.id.addmodel_button);
         galleryLL = findViewById(R.id.gallery_layout);
         initializeGallery();
-
+        titlesplash= (ImageView)findViewById(R.id.titlesplash_imageview);
         TitleSplashFade();
 
 
@@ -240,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void GalleryVisible(View view) {
 
+        titlesplash.setVisibility(View.INVISIBLE);
+
         if(galleryLL.getVisibility() == View.INVISIBLE){
             galleryLL.setVisibility(View.VISIBLE);
 
@@ -256,9 +261,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void TitleSplashFade(){
 
-        ImageView titlesplash= (ImageView)findViewById(R.id.titlesplash_imageview);
+
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
         titlesplash.startAnimation(myFadeInAnimation); //Set animation to your Imag
+
 
 
     }

@@ -36,7 +36,7 @@
     file: 'sampledata/models/Dragon.obj',
     name: 'Dragon',
     recenter: 'root',
-    scale: 0.0086300000000000005,
+    scale: 0.00086300000000000005,
   },
   version: '0.54:2',
 }

@@ -8,14 +8,14 @@
         },
         {
           baseColorTint: [
-            0.83,
-            0.68,
-            0.21,
+            0.59999999999999998,
+            0.59999999999999998,
+            0.59999999999999998,
             1,
           ],
         },
         {
-          metallic: 1.0,
+          metallic: 0,
         },
         {
           roughness: 1,
@@ -36,8 +36,7 @@
     file: 'sampledata/models/Zombie.obj',
     name: 'Zombie',
     recenter: 'root',
-    scale: 0.040000000000000001,
-    orientation: 90,
-         },
+    scale: 0.0040000000000000001,
+  },
   version: '0.54:2',
 }

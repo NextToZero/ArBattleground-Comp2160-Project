@@ -36,7 +36,7 @@
     file: 'sampledata/models/Mindflayer.obj',
     name: 'Mindflayer',
     recenter: 'root',
-    scale: 0.039607000000000003,
+    scale: 0.0039607000000000003,
   },
   version: '0.54:2',
 }
