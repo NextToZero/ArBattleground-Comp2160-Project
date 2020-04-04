@@ -21,6 +21,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -37,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private ModelLoader modelLoader;
     //declaration of ARFragment
     private ArFragment fragment;
+
+    //Gallery Visibility
+    ImageButton galleryButton;
+    LinearLayout galleryLL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,12 +69,27 @@ public class MainActivity extends AppCompatActivity {
             onUpdate();
         });
 
-        Log.d(DEBUG, "OnCreate Completed:");
+
         modelLoader = new ModelLoader(new WeakReference<>(this));
+
+
+
+
+
+
+        //creation of galleryButton ImageButton. For use in GalleryVisible method.
+        ImageButton galleryButton = findViewById(R.id.addmodel_button);
+        galleryLL = findViewById(R.id.gallery_layout);
         initializeGallery();
 
+        TitleSplashFade();
+
+
+        Log.d(DEBUG, "OnCreate Completed:");
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,31 +171,31 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initializeGallery() {
-        LinearLayout gallery = findViewById(R.id.gallery_layout);
+
 
         ImageView Dragon = new ImageView(this);
         Dragon.setImageResource(R.drawable.dragon_icon);
         Dragon.setContentDescription("Dragon");
         Dragon.setOnClickListener(view ->{addObject(Uri.parse("Dragon.sfb"));});
-        gallery.addView(Dragon);
+        galleryLL.addView(Dragon);
 
         ImageView Mimic = new ImageView(this);
         Mimic.setImageResource(R.drawable.mimic_icon);
         Mimic.setContentDescription("Mimic");
         Mimic.setOnClickListener(view ->{addObject(Uri.parse("Mimic.sfb"));});
-        gallery.addView(Mimic);
+        galleryLL.addView(Mimic);
 
         ImageView Mindflayer = new ImageView(this);
         Mindflayer.setImageResource(R.drawable.mindflayer_icon);
         Mindflayer.setContentDescription("Mindflayer");
         Mindflayer.setOnClickListener(view ->{addObject(Uri.parse("Mindflayer.sfb"));});
-        gallery.addView(Mindflayer);
+        galleryLL.addView(Mindflayer);
 
         ImageView Zombie = new ImageView(this);
         Zombie.setImageResource(R.drawable.zombie_icon);
         Zombie.setContentDescription("Zombie");
         Zombie.setOnClickListener(view ->{addObject(Uri.parse("Zombie.sfb"));});
-        gallery.addView(Zombie);
+        galleryLL.addView(Zombie);
     }
 
     private void addObject(Uri model) {
@@ -192,6 +214,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
+        galleryLL.setVisibility(View.INVISIBLE);
+
     }
 
     public void addNodeToScene(Anchor anchor, ModelRenderable renderable) {
@@ -213,5 +238,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void GalleryVisible(View view) {
 
+        if(galleryLL.getVisibility() == View.INVISIBLE){
+            galleryLL.setVisibility(View.VISIBLE);
+
+        }
+        else{
+
+            galleryLL.setVisibility(View.INVISIBLE);
+
+        }
+
+
+    }
+
+
+    public void TitleSplashFade(){
+
+        ImageView titlesplash= (ImageView)findViewById(R.id.titlesplash_imageview);
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        titlesplash.startAnimation(myFadeInAnimation); //Set animation to your Imag
+
+
+    }
 }
