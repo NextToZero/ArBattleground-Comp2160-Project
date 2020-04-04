@@ -24,7 +24,7 @@
 
         <meta-data
             android:name="com.google.android.ar.API_KEY"
-            android:value="AIzaSyCZSdDFFGia5epl73Y_freUA1E4Pq-O4bo"/>
+            android:value=""/>
     </application>
 
 
