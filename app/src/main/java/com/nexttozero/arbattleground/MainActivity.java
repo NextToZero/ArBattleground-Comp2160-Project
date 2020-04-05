@@ -1,5 +1,6 @@
 package com.nexttozero.arbattleground;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -55,16 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      /**  FloatingActionButton fab = findViewById(R.id.btn_settings);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-       **/
         fragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
@@ -95,27 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void onUpdate() {
         boolean trackingChanged = updateTracking();
@@ -244,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void GalleryVisible(View view) {
 
+      /**
+       * Previous method. Hide gallery buttons on the right pane. Now, this will open a new activity where a detailed selection can occur.
+       *
         titlesplash.setVisibility(View.INVISIBLE);
 
         if(galleryLL.getVisibility() == View.INVISIBLE){
@@ -255,6 +229,10 @@ public class MainActivity extends AppCompatActivity {
             galleryLL.setVisibility(View.INVISIBLE);
 
         }
+       **/
+
+      Intent intent = new Intent(this, GalleryActivity.class);
+      startActivity(intent);
 
 
     }
@@ -285,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
         //The above code recreates the sceneform fragement. Currently a work in progress, as I'm trying to find a better way to clear nodes.
         //Currently obliterates the sceneform fragment and then fails to recreate it.
-        
+
 
     }
 }
