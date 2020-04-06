@@ -45,14 +45,14 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
-            android:id="@+id/addmodel_button"
+            android:id="@+id/quickselect_button"
             android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="16dp"
             android:background="#00FFFFFF"
-            android:onClick="GalleryVisible"
+            android:onClick="QuickSelectVisible"
             android:scaleType="fitCenter"
-            android:src="@drawable/gallery_icon"
+            android:src="@drawable/quickselect_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/sceneform_fragment"
             app:layout_constraintHorizontal_bias="0.498"
@@ -60,13 +60,42 @@
             app:layout_constraintTop_toBottomOf="@+id/titlesplash_imageview"
             app:layout_constraintVertical_bias="0.975" />
 
+        <ImageButton
+            android:id="@+id/gallery_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="#00FFFFFF"
+            android:onClick="GalleryLaunch"
+            android:scaleType="fitCenter"
+            android:src="@drawable/gallery_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quickselect_button"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/clear_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="#00FFFFFF"
+            android:onClick="ClearScene"
+            android:scaleType="fitCenter"
+            android:src="@drawable/clear_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/quickselect_button" />
+
         <ImageView
             android:id="@+id/titlesplash_imageview"
             android:layout_width="431dp"
             android:layout_height="0dp"
             android:layout_marginBottom="410dp"
             android:background="#00FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/addmodel_button"
+            app:layout_constraintBottom_toTopOf="@+id/quickselect_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

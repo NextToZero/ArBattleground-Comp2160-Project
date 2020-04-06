@@ -1,0 +1,28 @@
+{
+"models":[
+	{
+	  "name": "Zombie",
+      "icon": "zombie_icon",
+      "preview_image": "zombie_preview",
+      "description": "A reanimated corpse. Beware its diseased bite, or you may find that you start to crave flesh"
+	},
+	{
+	  "name": "Mimic",
+      "icon": "mimic_icon",
+      "preview_image": "mimic_preview",
+      "description": "A failed experiment of a mad wizard. This creature hides in plain sight, and prays on greedy adventurers"
+	},
+	{
+	  "name": "Dragon",
+      "icon": "dragon_icon",
+      "preview_image": "dragon_preview",
+      "description": " A great Red Dragon. Few who encounter this mighty foe escape with their lives."
+	},
+	{
+	  "name": "Mindflayer",
+      "icon": "mindflayer_icon",
+      "preview_image": "mindflayer_preview",
+      "description": "A creature of the deep Underdark. Powerful psionic warriors, they enthrall weaker creatures to do their bidding."
+	}
+]
+}
