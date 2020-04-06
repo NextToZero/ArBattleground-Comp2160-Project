@@ -18,6 +18,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -255,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClearScene(View view) {
 
-        /**
+/**
          fragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
 
@@ -263,11 +265,13 @@ public class MainActivity extends AppCompatActivity {
          clear.detach(fragment);
          clear.attach(fragment);
          clear.commit();
-         **/
 
         //The above code recreates the sceneform fragement. Currently a work in progress, as I'm trying to find a better way to clear nodes.
         //Currently obliterates the sceneform fragment and then fails to recreate it.
 
+**/
 
+    Toast clear = Toast.makeText(this,"Feature currently under construction. Please close and reopen to clear field.", Toast.LENGTH_LONG);
+    clear.show();
     }
 }

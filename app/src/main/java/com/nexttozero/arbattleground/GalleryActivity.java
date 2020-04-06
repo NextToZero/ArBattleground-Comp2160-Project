@@ -47,7 +47,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         populateArrayList();
 
-        PreviewModelAdapter modelAdapter = new PreviewModelAdapter(previewModels);
+        PreviewModelAdapter modelAdapter = new PreviewModelAdapter(previewModels, this);
 
 
         String test = "" + modelAdapter.getItemCount();
