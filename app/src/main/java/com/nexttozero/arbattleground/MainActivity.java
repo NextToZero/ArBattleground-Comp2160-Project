@@ -1,5 +1,7 @@
 package com.nexttozero.arbattleground;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,16 +18,15 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -44,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView titlesplash;
 
-    //Gallery Visibility
-    ImageButton galleryButton;
-    LinearLayout galleryLL;
+
+
+    LinearLayout quickSelectLL;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,16 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      /**  FloatingActionButton fab = findViewById(R.id.btn_settings);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-       **/
         fragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
@@ -72,49 +67,24 @@ public class MainActivity extends AppCompatActivity {
             onUpdate();
         });
 
-
         modelLoader = new ModelLoader(new WeakReference<>(this));
 
+        //Initialization of Quick Select
+        quickSelectLL = findViewById(R.id.gallery_layout);
+        initializeQuickSelect();
 
-
-
-
-
-        //creation of galleryButton ImageButton. For use in GalleryVisible method.
-        ImageButton galleryButton = findViewById(R.id.addmodel_button);
-        galleryLL = findViewById(R.id.gallery_layout);
-        initializeGallery();
-        titlesplash= (ImageView)findViewById(R.id.titlesplash_imageview);
+        //Initialization of Title Splash banner
+        titlesplash = (ImageView) findViewById(R.id.titlesplash_imageview);
         TitleSplashFade();
+        titlesplash.setVisibility(View.INVISIBLE);
+
+
 
 
         Log.d(DEBUG, "OnCreate Completed:");
 
     }
 
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void onUpdate() {
         boolean trackingChanged = updateTracking();
@@ -137,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private boolean updateTracking() {
         Frame frame = fragment.getArSceneView().getArFrame();
         boolean wasTracking = isTracking;
@@ -168,37 +139,44 @@ public class MainActivity extends AppCompatActivity {
 
     private android.graphics.Point getScreenCenter() {
         View vw = findViewById(android.R.id.content);
-        return new android.graphics.Point(vw.getWidth()/2, vw.getHeight()/2);
+        return new android.graphics.Point(vw.getWidth() / 2, vw.getHeight() / 2);
     }
 
 
-
-    private void initializeGallery() {
+    private void initializeQuickSelect() {
 
 
         ImageView Dragon = new ImageView(this);
         Dragon.setImageResource(R.drawable.dragon_icon);
         Dragon.setContentDescription("Dragon");
-        Dragon.setOnClickListener(view ->{addObject(Uri.parse("Dragon.sfb"));});
-        galleryLL.addView(Dragon);
+        Dragon.setOnClickListener(view -> {
+            addObject(Uri.parse("Dragon.sfb"));
+        });
+        quickSelectLL.addView(Dragon);
 
         ImageView Mimic = new ImageView(this);
         Mimic.setImageResource(R.drawable.mimic_icon);
         Mimic.setContentDescription("Mimic");
-        Mimic.setOnClickListener(view ->{addObject(Uri.parse("Mimic.sfb"));});
-        galleryLL.addView(Mimic);
+        Mimic.setOnClickListener(view -> {
+            addObject(Uri.parse("Mimic.sfb"));
+        });
+        quickSelectLL.addView(Mimic);
 
         ImageView Mindflayer = new ImageView(this);
         Mindflayer.setImageResource(R.drawable.mindflayer_icon);
         Mindflayer.setContentDescription("Mindflayer");
-        Mindflayer.setOnClickListener(view ->{addObject(Uri.parse("Mindflayer.sfb"));});
-        galleryLL.addView(Mindflayer);
+        Mindflayer.setOnClickListener(view -> {
+            addObject(Uri.parse("Mindflayer.sfb"));
+        });
+        quickSelectLL.addView(Mindflayer);
 
         ImageView Zombie = new ImageView(this);
         Zombie.setImageResource(R.drawable.zombie_icon);
         Zombie.setContentDescription("Zombie");
-        Zombie.setOnClickListener(view ->{addObject(Uri.parse("Zombie.sfb"));});
-        galleryLL.addView(Zombie);
+        Zombie.setOnClickListener(view -> {
+            addObject(Uri.parse("Zombie.sfb"));
+        });
+        quickSelectLL.addView(Zombie);
     }
 
     private void addObject(Uri model) {
@@ -218,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        galleryLL.setVisibility(View.INVISIBLE);
+        quickSelectLL.setVisibility(View.INVISIBLE);
 
     }
 
@@ -229,9 +207,11 @@ public class MainActivity extends AppCompatActivity {
         node.setParent(anchorNode);
         fragment.getArSceneView().getScene().addChild(anchorNode);
         node.select();
+
+
     }
 
-    public void onException(Throwable throwable){
+    public void onException(Throwable throwable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(throwable.getMessage())
                 .setTitle("Codelab error!");
@@ -240,32 +220,58 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
+    public void QuickSelectVisible(View view) {
 
-    public void GalleryVisible(View view) {
 
-        titlesplash.setVisibility(View.INVISIBLE);
+        if (quickSelectLL.getVisibility() == View.INVISIBLE) {
+            quickSelectLL.setVisibility(View.VISIBLE);
 
-        if(galleryLL.getVisibility() == View.INVISIBLE){
-            galleryLL.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else{
-
-            galleryLL.setVisibility(View.INVISIBLE);
+            quickSelectLL.setVisibility(View.INVISIBLE);
 
         }
+
+    }
+
+
+    public void GalleryLaunch(View view) {
+
+
+        Intent intent = new Intent(this, GalleryActivity.class);
+        startActivity(intent);
 
 
     }
 
 
-    public void TitleSplashFade(){
+    public void TitleSplashFade() {
 
 
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        titlesplash.startAnimation(myFadeInAnimation); //Set animation to your Imag
+        titlesplash.startAnimation(myFadeInAnimation);
 
 
+    }
 
+
+    public void ClearScene(View view) {
+
+/**
+         fragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
+
+
+         final FragmentTransaction clear = getSupportFragmentManager().beginTransaction();
+         clear.detach(fragment);
+         clear.attach(fragment);
+         clear.commit();
+
+        //The above code recreates the sceneform fragement. Currently a work in progress, as I'm trying to find a better way to clear nodes.
+        //Currently obliterates the sceneform fragment and then fails to recreate it.
+
+**/
+
+    Toast clear = Toast.makeText(this,"Feature currently under construction. Please close and reopen to clear field.", Toast.LENGTH_LONG);
+    clear.show();
     }
 }
