@@ -6,8 +6,6 @@ package com.nexttozero.arbattleground;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +26,8 @@ public class GalleryActivity extends AppCompatActivity {
     public static final String JSON_OBJECT = "JSON OBJECT";
     public RecyclerView rv_previewModel;
 
+    public final int MODEL_COUNT = 4;
+
 
 
     ArrayList<PreviewModel> previewModels;
@@ -35,14 +35,17 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Creates the Gallery activity.
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         rv_previewModel = findViewById(R.id.rvPreviewModel);
 
 
-       // previewModels = PreviewModel.createModelsList(20);
+       //Creation of PreviewModels arraylist. This value can be changed via the MODEL_COUNT constant up above. Eventually
+        //to be made dynamic, so it reads from the JSON File.
 
-        previewModels = new ArrayList<PreviewModel>(4);
+        previewModels = new ArrayList<PreviewModel>(MODEL_COUNT);
 
 
         populateArrayList();
@@ -52,6 +55,19 @@ public class GalleryActivity extends AppCompatActivity {
 
         String test = "" + modelAdapter.getItemCount();
         Log.d(MODEL_ADAPTER_TEST, test);
+
+        //Logs for bugtesting.
+
+        /**
+         *
+         *
+         * This was an area I had more difficulty than I would have expected. At this point,
+         * the following if statement *could* be removed. However, I'm trying to make it a habit to
+         * leave more Logs, for easy debugging.
+         *
+         *
+         *
+         */
 
         if(rv_previewModel != null){
 
@@ -63,6 +79,18 @@ public class GalleryActivity extends AppCompatActivity {
         rv_previewModel.setLayoutManager(new LinearLayoutManager(this));
 
         //Work in Progress. Should allow the user to touch an entry on the list, but it's non-functional right now.
+        /**
+         *
+         *
+         * Another feature I would like to implement eventually. Users could select a model from the Gallery, as well as the Quick Select.
+         * However, I had a rough time getting the addOnItemTouchListener to actually do what it should.
+         *
+         *
+         *
+         *
+         *
+         */
+
         rv_previewModel.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 
             @Override
@@ -92,6 +120,9 @@ public class GalleryActivity extends AppCompatActivity {
 
     public void populateArrayList(){
 
+        //method to populate ListArray for Recycler view.
+        //pulls from the Models json.
+
         Log.d(JSON_OBJECT,"Starting ArrayList Population");
 
         try{
@@ -100,6 +131,9 @@ public class GalleryActivity extends AppCompatActivity {
 
             for(int i=0; i< jsArray.length();i++){
                 JSONObject jsEntry = jsArray.getJSONObject(i);
+
+                //retrieves all fields from each JsonObject.
+
                 String nameIn = jsEntry.getString("name");
                 String iconIn = jsEntry.getString("icon");
                 String previewIn = jsEntry.getString("preview_image");

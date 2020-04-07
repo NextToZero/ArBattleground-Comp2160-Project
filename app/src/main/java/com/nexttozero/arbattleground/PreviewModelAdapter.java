@@ -54,7 +54,14 @@ public class PreviewModelAdapter extends RecyclerView.Adapter<PreviewModelAdapte
 
         ImageView previewImage = viewHolder.previewImageView;
         previewImage.setImageResource(getImageId(context, model.getImage()));
+
+
 /**
+ *
+ * I was really stumped by this one. Trying to use a string as the input for setImageResource.
+ * Kinda strange how you can't access the resources until you bring in Context from a proper activity.
+ * Would this have been better run through the main activity?
+ *
         ImageView previewImage = viewHolder.previewImageView;
         String previewStr = "R.drawable." + model.getImage();
         previewImage.setImageResource(Integer.parseInt(previewStr));

@@ -12,6 +12,7 @@ import com.google.ar.core.Plane;
 import com.google.ar.core.Trackable;
 import com.google.ar.core.TrackingState;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Creates the Main Activity. This prepares the ARFragment,
+        //The Quick Select, and the Title Banner.
 
         Log.d(DEBUG, "started:");
         super.onCreate(savedInstanceState);
@@ -145,6 +150,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeQuickSelect() {
 
+        //initialization of Quick Select options
+        /**
+         *
+         * Had I the time, this would tie into the JSON file, similar to how the Gallery works.
+         * This would be the first feature I would improve, to simplify the adding of new Models to the app.
+         *
+         *
+         *
+         */
 
         ImageView Dragon = new ImageView(this);
         Dragon.setImageResource(R.drawable.dragon_icon);
@@ -222,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void QuickSelectVisible(View view) {
 
+        //reveals the QuickSelect buttons on the top right.
 
         if (quickSelectLL.getVisibility() == View.INVISIBLE) {
             quickSelectLL.setVisibility(View.VISIBLE);
@@ -237,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void GalleryLaunch(View view) {
 
+        //launches the Gallery activity. Simple as that.
 
         Intent intent = new Intent(this, GalleryActivity.class);
         startActivity(intent);
@@ -247,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void TitleSplashFade() {
 
+        //animates the Title Banner. It fades in, it works, it fades out. How neat is that?
 
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
         titlesplash.startAnimation(myFadeInAnimation);
@@ -257,21 +274,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClearScene(View view) {
 
-/**
-         fragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
+//clear function. Creates a list of all Nodes, and detaches them. This clears all current models.
 
-         final FragmentTransaction clear = getSupportFragmentManager().beginTransaction();
-         clear.detach(fragment);
-         clear.attach(fragment);
-         clear.commit();
-
-        //The above code recreates the sceneform fragement. Currently a work in progress, as I'm trying to find a better way to clear nodes.
-        //Currently obliterates the sceneform fragment and then fails to recreate it.
-
-**/
-
-    Toast clear = Toast.makeText(this,"Feature currently under construction. Please close and reopen to clear field.", Toast.LENGTH_LONG);
+    Toast clear = Toast.makeText(this,"Clearing Models!", Toast.LENGTH_LONG);
     clear.show();
+
+        List<Node> children = new ArrayList<>(fragment.getArSceneView().getScene().getChildren());
+        for (Node node : children) {
+            if (node instanceof AnchorNode) {
+                if (((AnchorNode) node).getAnchor() != null) {
+                    ((AnchorNode) node).getAnchor().detach();
+                }
+            }
+
+        }
+
+
+
+
+
+
     }
 }
